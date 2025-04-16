@@ -1,0 +1,71 @@
+body {
+
+background-color: chartreuse;
+background-size: cover;
+background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.btn {
+
+  margin-left: 40%;
+  border-radius: 20px;
+  color: rgb(231, 242, 248);
+  margin-top: 20px;
+  background-color: green;
+  size: 40px;
+
+
+}
+
+
+
+
+.ol,
+ul {
+  display: flex;
+justify-content:space-between;
+  margin-top: 40px;
+  list-style-type: none;
+  border-radius: 20px;
+  font-size: 2rem;
+ 
+
+}
+
+
+.maya {
+
+  border-radius: 200px;
+  margin-left: 40rem;
+}
+
+
+
+
+
+.first {
+
+  background-color: #61dafb;
+  border-radius: 10px;
+  width: 120%;
+
+}
+
+.lgn {
+  margin-top: 20px;
+  font-style: italic;
+
+}
+
+.btnn {
+  background-color: green;
+  color: white;
+  margin-left:110rem;
+  border-radius: 20px;
+font-weight: bold;
+
+ 
+}
+
