@@ -2,21 +2,23 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "yourdockerhubusername/my-node-app"
+        DOCKER_IMAGE = "dhanamjeevig91@gmail.com"
         CONTAINER_NAME = "node-container"
     }
 
     stages {
 
         stage('Clone Code') {
-            steps {
-                git 'https://github.com/your-username/your-repo.git'
-            }
-        }
+    steps {
+        git credentialsId: 'github-creds',
+            url: 'https://github.com/mokshith-gnaguraju/pushpitsteels.git',
+            branch: 'main'
+    }
+}
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                bat 'docker build -t %DOCKER_IMAGE% .'
             }
         }
 
@@ -24,12 +26,12 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'USERNAME',
-                    passwordVariable: 'PASSWORD'
+                    usernameVariable: 'dhanamjeevi1989',
+                    passwordVariable: 'Mokshith@21'
                 )]) {
-                    sh '''
-                    echo $PASSWORD | docker login -u $USERNAME --password-stdin
-                    docker push $DOCKER_IMAGE
+                    bat '''
+                    echo %PASSWORD% | docker login -u %USERNAME% --password-stdin
+                    docker push %DOCKER_IMAGE%
                     '''
                 }
             }
@@ -37,10 +39,10 @@ pipeline {
 
         stage('Deploy Container') {
             steps {
-                sh '''
-                docker stop $CONTAINER_NAME || true
-                docker rm $CONTAINER_NAME || true
-                docker run -d -p 3000:3000 --name $CONTAINER_NAME $DOCKER_IMAGE
+                bat '''
+                docker stop %CONTAINER_NAME% || exit 0
+                docker rm %CONTAINER_NAME% || exit 0
+                docker run -d -p 3000:3000 --name %CONTAINER_NAME% %DOCKER_IMAGE%
                 '''
             }
         }
