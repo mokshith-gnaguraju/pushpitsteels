@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "dhanamjeevig91@gmail.com"
+        DOCKER_IMAGE = "dhanamjeevi1989/pushpitsteels:latest"
         CONTAINER_NAME = "node-container"
     }
 
     stages {
 
         stage('Clone Code') {
-    steps {
-        git credentialsId: 'github-creds',
-            url: 'https://github.com/mokshith-gnaguraju/pushpitsteels.git',
-            branch: 'main'
-    }
-}
+            steps {
+                git credentialsId: 'github-creds',
+                    url: 'https://github.com/mokshith-gnaguraju/pushpitsteels.git',
+                    branch: 'main'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -26,8 +26,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'dhanamjeevi1989',
-                    passwordVariable: 'Mokshith@21'
+                    usernameVariable: 'USERNAME',
+                    passwordVariable: 'PASSWORD'
                 )]) {
                     bat '''
                     echo %PASSWORD% | docker login -u %USERNAME% --password-stdin
