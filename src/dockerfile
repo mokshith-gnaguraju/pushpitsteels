@@ -1,14 +1,21 @@
-# Use Node.js image
+# Use official Node image
 FROM node:18
 
 # Set working directory
 WORKDIR /app
 
-# Copy files
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy all project files
 COPY . .
 
 # Expose port
 EXPOSE 3000
 
-# Run app
-CMD ["node", "app.js"]
+# Start app
+CMD ["npm", "start"]
+
